@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const AddTaskForm = ({ onAddTask }) => {
+const AddTaskForm = ({ onAddTask, editingTask }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('Medium');
@@ -8,11 +8,23 @@ const AddTaskForm = ({ onAddTask }) => {
   const [assignee, setAssignee] = useState('');
   const [dueDate, setDueDate] = useState('');
 
+  // Load values if editing
+  useEffect(() => {
+    if (editingTask) {
+      setTitle(editingTask.title || '');
+      setDescription(editingTask.description || '');
+      setPriority(editingTask.priority || 'Medium');
+      setStatus(editingTask.status || 'todo');
+      setAssignee(editingTask.assignee || '');
+      setDueDate(editingTask.dueDate || '');
+    }
+  }, [editingTask]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newTask = {
-      id: Date.now().toString(),
+    const taskData = {
+      ...editingTask, // contains ID if editing
       title,
       description,
       priority,
@@ -21,7 +33,7 @@ const AddTaskForm = ({ onAddTask }) => {
       dueDate,
     };
 
-    onAddTask(newTask); // Parent handles adding to the right project
+    onAddTask(taskData); // Parent handles add or edit
     resetForm();
   };
 
@@ -36,7 +48,9 @@ const AddTaskForm = ({ onAddTask }) => {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-xl p-6 space-y-4">
-      <h2 className="text-xl font-semibold">Add New Task</h2>
+      <h2 className="text-xl font-semibold">
+        {editingTask ? 'Edit Task' : 'Add New Task'}
+      </h2>
 
       <input
         type="text"
@@ -74,7 +88,6 @@ const AddTaskForm = ({ onAddTask }) => {
           <option value="in-progress">In Progress</option>
           <option value="done">Done</option>
         </select>
-
       </div>
 
       <input
@@ -96,7 +109,7 @@ const AddTaskForm = ({ onAddTask }) => {
         type="submit"
         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
       >
-        Add Task
+        {editingTask ? 'Update Task' : 'Add Task'}
       </button>
     </form>
   );

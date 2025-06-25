@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import projects from '../data/projects';
 import TaskCard from '../components/TaskCard';
@@ -10,29 +10,58 @@ const ProjectPage = () => {
   const project = projects.find((p) => p.id === projectId);
 
   const [taskList, setTaskList] = useState(() => {
-  const storedTasks = localStorage.getItem('taskList');
-  return storedTasks ? JSON.parse(storedTasks) : [];
-});
+    const storedTasks = localStorage.getItem('taskList');
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
 
   const [showForm, setShowForm] = useState(false);
+  const [taskBeingEdited, setTaskBeingEdited] = useState(null);
 
   const filteredTasks = taskList.filter((task) => task.projectId === projectId);
 
-  const handleAddTask = (newTask) => {
-  const taskWithProject = {
-    ...newTask,
-    id: Date.now().toString(),
-    projectId: projectId,
+  const handleAddTask = (task) => {
+    let updatedTasks;
+
+    if (taskBeingEdited) {
+      // Edit mode
+      updatedTasks = taskList.map((t) =>
+        t.id === taskBeingEdited.id ? { ...t, ...task } : t
+      );
+    } else {
+      // Add mode
+      const taskWithProject = {
+        ...task,
+        id: Date.now().toString(),
+        projectId,
+      };
+      updatedTasks = [...taskList, taskWithProject];
+    }
+
+    setTaskList(updatedTasks);
+    setShowForm(false);
+    setTaskBeingEdited(null);
   };
 
-  const updatedTasks = [...taskList, taskWithProject];
+  const handleEditTask = (task) => {
+    setTaskBeingEdited(task);
+    setShowForm(true);
+  };
+
+  const handleDeleteTask = (taskId) => {
+    const updated = taskList.filter((task) => task.id !== taskId);
+    setTaskList(updated);
+  };
+
+  const handleStatusChange = (taskId, newStatus) => {
+  const updatedTasks = taskList.map(task =>
+    task.id === taskId ? { ...task, status: newStatus } : task
+  );
   setTaskList(updatedTasks);
-
-  // Save to localStorage
-  localStorage.setItem('taskList', JSON.stringify(updatedTasks));
-
-  setShowForm(false);
 };
+
+  useEffect(() => {
+    localStorage.setItem('taskList', JSON.stringify(taskList));
+  }, [taskList]);
 
   const statusLabels = {
     todo: { title: 'To Do', icon: '📝', color: 'border-blue-400' },
@@ -62,7 +91,10 @@ const ProjectPage = () => {
       {/* Add Task Button + Form */}
       <div className="flex justify-end">
         <button
-          onClick={() => setShowForm(!showForm)}
+          onClick={() => {
+            setTaskBeingEdited(null);
+            setShowForm(!showForm);
+          }}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition"
         >
           {showForm ? 'Cancel' : '+ Add Task'}
@@ -71,7 +103,7 @@ const ProjectPage = () => {
 
       {showForm && (
         <div className="bg-white p-4 rounded-xl shadow-md mt-4">
-          <AddTaskForm onAddTask={handleAddTask} />
+          <AddTaskForm onAddTask={handleAddTask} editingTask={taskBeingEdited} />
         </div>
       )}
 
@@ -94,7 +126,13 @@ const ProjectPage = () => {
                 {filteredTasks
                   .filter((task) => task.status === status)
                   .map((task) => (
-                    <TaskCard key={task.id} task={task} />
+                    <TaskCard
+                      key={task.id}
+                      task={task}
+                      onDelete={handleDeleteTask}
+                      onEdit={handleEditTask}
+                      onStatusChange={handleStatusChange}
+                    />
                   ))}
               </div>
             </div>
