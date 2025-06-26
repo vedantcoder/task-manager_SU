@@ -1,3 +1,4 @@
+//dummy data
 const projects = [
   {
     id: 1,
