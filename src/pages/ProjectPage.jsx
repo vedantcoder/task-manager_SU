@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import projects from '../data/projects';
+// import projects from '../data/projects';
 import TaskCard from '../components/TaskCard';
 import AddTaskForm from '../components/AddTaskForm';
 
+
 const ProjectPage = () => {
+  const storedProjects = localStorage.getItem("projects");
+  const projects = storedProjects ? JSON.parse(storedProjects) : [];
   const { id } = useParams();
-  const projectId = parseInt(id);
+  const projectId = id;
   const project = projects.find((p) => p.id === projectId);
 
   const [taskList, setTaskList] = useState(() => {
