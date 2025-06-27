@@ -84,9 +84,9 @@ const AddTaskForm = ({ onAddTask, editingTask }) => {
           onChange={(e) => setStatus(e.target.value)}
           className="w-full p-2 border rounded"
         >
-          <option value="todo">To Do</option>
-          <option value="in-progress">In Progress</option>
-          <option value="done">Done</option>
+          <option value="todo">todo</option>
+          <option value="in-progress">in-progress</option>
+          <option value="done">done</option>
         </select>
       </div>
 
