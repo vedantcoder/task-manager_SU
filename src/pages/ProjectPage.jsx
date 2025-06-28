@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 // import projects from '../data/projects';
 import TaskCard from '../components/TaskCard';
 import AddTaskForm from '../components/AddTaskForm';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const ProjectPage = () => {
   const storedProjects = localStorage.getItem("projects");
