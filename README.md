@@ -68,5 +68,5 @@ Once running, open your browser and go to http://localhost:5173
 
 ### 🧑‍💻 Author
 **Vedant Vivek Nichal**
+
 🌐 GitHub: @vedantcoder
-🔗 Live App: Task Manager
