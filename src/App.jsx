@@ -3,6 +3,7 @@ import Footer from './components/Footer'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import ProjectPage from './pages/ProjectPage'
+import AllTasksPage from './pages/AllTasks'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/project/:id" element={<ProjectPage />} />
+          <Route path="/all-tasks" element={<AllTasksPage />} />
         </Routes>
       </main>
       <Footer />

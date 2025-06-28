@@ -15,6 +15,13 @@ function Navbar() {
         {/* <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm transition">
           + Add Project
         </button> */}
+
+        <Link
+          to="/all-tasks"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-shadow shadow hover:shadow-lg"
+        >
+          🗂️ All Tasks
+        </Link>
       </div>
     </nav>
   )

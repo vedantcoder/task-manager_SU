@@ -206,7 +206,7 @@ const visibleTasks = filteredTasks
       setPriorityFilter("");
       setAssigneeFilter("");
       setSearchTerm("");
-      setSortOption("");
+      setSortOption("dueDate");
     }}
     className="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded transition"
   >

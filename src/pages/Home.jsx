@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProjectForm from "../components/AddProjectForm";
 import ProjectCard from "../components/ProjectCard";
+import TaskCardHome from "../components/TaskCardHome";
+
 
 const HomePage = () => {
   const [projects, setProjects] = useState(() => {
@@ -66,6 +68,7 @@ const HomePage = () => {
       />
     </div>
   )}
+
 
   {/* Project Cards or Empty State */}
   {projects.length === 0 ? (
