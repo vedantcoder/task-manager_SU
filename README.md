@@ -63,8 +63,8 @@ npm install
 # 4. Start the development server
 npm run dev
 Once running, open your browser and go to http://localhost:5173
-
-Folder Structure (Simplified)
+```
+### Folder Structure (Simplified)
 task-manager_SU/
 ├── public/
 ├── src/
@@ -77,7 +77,7 @@ task-manager_SU/
 │   └── index.css       → Tailwind imports and custom styles
 └── README.md
 
-🧑‍💻 Author
-Vedant Vivek Nichal
+### 🧑‍💻 Author
+**Vedant Vivek Nichal**
 🌐 GitHub: @vedantcoder
 🔗 Live App: Task Manager
