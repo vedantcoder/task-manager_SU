@@ -64,28 +64,6 @@ npm install
 npm run dev
 Once running, open your browser and go to http://localhost:5173
 ```
-### Folder Structure (Simplified)
-task-manager_SU/
-
-├── public/
-
-├── src/
-
-│   ├── assets/         → App logo and icons
-
-│   ├── components/     → Reusable UI components
-
-│   ├── pages/          → AllTasksPage, ProjectPage, HomePage
-
-│   ├── utils/          → Utility functions
-
-│   ├── App.jsx         → Main app layout
-
-│   ├── main.jsx        → React entry point
-
-│   └── index.css       → Tailwind imports and custom styles
-
-└── README.md
 
 
 ### 🧑‍💻 Author
